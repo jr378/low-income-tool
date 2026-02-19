@@ -1,0 +1,147 @@
+// Tax credit definitions and eligibility rules for 2025 tax year
+
+export const TAX_CREDITS = [
+  {
+    id: 'eitc',
+    name: 'Earned Income Tax Credit (EITC)',
+    nameEs: 'Crédito Tributario por Ingreso del Trabajo (EITC)',
+    description: 'A refundable tax credit for working people with low to moderate income. You get money back even if you owe no tax.',
+    descriptionEs: 'Un crédito tributario reembolsable para personas que trabajan con ingresos bajos a moderados. Recibe dinero incluso si no debe impuestos.',
+    refundable: true,
+    // Income limits and max credit by number of qualifying children (2025 approx)
+    tiers: [
+      { children: 0, maxCredit: 632, incomeLimitSingle: 18591, incomeLimitMarried: 25511 },
+      { children: 1, maxCredit: 3995, incomeLimitSingle: 49084, incomeLimitMarried: 56004 },
+      { children: 2, maxCredit: 6604, incomeLimitSingle: 55768, incomeLimitMarried: 62688 },
+      { children: 3, maxCredit: 7830, incomeLimitSingle: 59899, incomeLimitMarried: 66819 },
+    ],
+    requirements: [
+      'Must have earned income (wages, salary, or self-employment)',
+      'Must file a tax return, even if you don\'t owe tax',
+      'Investment income must be $11,600 or less',
+      'Must be a U.S. citizen or resident alien all year',
+      'Cannot file as Married Filing Separately',
+    ],
+    requirementsEs: [
+      'Debe tener ingresos del trabajo (salarios o trabajo por cuenta propia)',
+      'Debe presentar una declaración de impuestos, incluso si no debe impuestos',
+      'Los ingresos de inversión deben ser $11,600 o menos',
+      'Debe ser ciudadano de EE.UU. o residente extranjero todo el año',
+      'No puede presentar como Casado Presentando por Separado',
+    ],
+  },
+  {
+    id: 'ctc',
+    name: 'Child Tax Credit (CTC)',
+    nameEs: 'Crédito Tributario por Hijos (CTC)',
+    description: 'Up to $2,000 per qualifying child under 17. Up to $1,700 of this is refundable (you get it back even if you owe no tax).',
+    descriptionEs: 'Hasta $2,000 por hijo calificado menor de 17 años. Hasta $1,700 de esto es reembolsable (lo recibe incluso si no debe impuestos).',
+    refundable: true,
+    perChild: 2000,
+    refundablePerChild: 1700,
+    phaseOutSingle: 200000,
+    phaseOutMarried: 400000,
+    requirements: [
+      'Child must be under 17 at end of tax year',
+      'Child must be your dependent',
+      'Child must have a Social Security number',
+      'Must have earned income of at least $2,500 for refundable portion',
+    ],
+    requirementsEs: [
+      'El hijo debe ser menor de 17 años al final del año fiscal',
+      'El hijo debe ser su dependiente',
+      'El hijo debe tener un número de Seguro Social',
+      'Debe tener ingresos del trabajo de al menos $2,500 para la parte reembolsable',
+    ],
+  },
+  {
+    id: 'savers',
+    name: 'Saver\'s Credit',
+    nameEs: 'Crédito del Ahorrador',
+    description: 'A credit of 10-50% of your retirement contributions (up to $2,000 per person) if you contribute to a 401(k), IRA, or similar plan.',
+    descriptionEs: 'Un crédito del 10-50% de sus contribuciones de jubilación (hasta $2,000 por persona) si contribuye a un 401(k), IRA o plan similar.',
+    refundable: false,
+    incomeLimits: {
+      single: [
+        { rate: 50, limit: 23750 },
+        { rate: 20, limit: 25750 },
+        { rate: 10, limit: 39750 },
+      ],
+      married: [
+        { rate: 50, limit: 47500 },
+        { rate: 20, limit: 51500 },
+        { rate: 10, limit: 79500 },
+      ],
+      hoh: [
+        { rate: 50, limit: 35625 },
+        { rate: 20, limit: 38625 },
+        { rate: 10, limit: 59625 },
+      ],
+    },
+    requirements: [
+      'Must be 18 or older',
+      'Cannot be a full-time student',
+      'Cannot be claimed as a dependent',
+      'Must contribute to a retirement account (401k, IRA, etc.)',
+    ],
+    requirementsEs: [
+      'Debe tener 18 años o más',
+      'No puede ser estudiante a tiempo completo',
+      'No puede ser reclamado como dependiente',
+      'Debe contribuir a una cuenta de jubilación (401k, IRA, etc.)',
+    ],
+  },
+  {
+    id: 'aoc',
+    name: 'American Opportunity Credit (Education)',
+    nameEs: 'Crédito de Oportunidad Americana (Educación)',
+    description: 'Up to $2,500/year for the first 4 years of college. 40% is refundable (up to $1,000 back even if you owe no tax).',
+    descriptionEs: 'Hasta $2,500/año durante los primeros 4 años de universidad. El 40% es reembolsable (hasta $1,000 de vuelta incluso si no debe impuestos).',
+    refundable: true,
+    maxCredit: 2500,
+    refundableAmount: 1000,
+    incomeLimitSingle: 90000,
+    incomeLimitMarried: 180000,
+    phaseOutStartSingle: 80000,
+    phaseOutStartMarried: 160000,
+    requirements: [
+      'Must be enrolled at least half-time in a degree program',
+      'Must be in the first 4 years of higher education',
+      'Must not have claimed the credit for more than 4 years',
+      'Must not have a felony drug conviction',
+    ],
+    requirementsEs: [
+      'Debe estar inscrito al menos medio tiempo en un programa de grado',
+      'Debe estar en los primeros 4 años de educación superior',
+      'No debe haber reclamado el crédito por más de 4 años',
+      'No debe tener una condena por delito grave de drogas',
+    ],
+  },
+];
+
+export const FREE_FILING_RESOURCES = [
+  {
+    name: 'IRS Free File',
+    nameEs: 'IRS Free File',
+    description: 'Free tax prep software if your income is $84,000 or less.',
+    descriptionEs: 'Software gratuito de preparación de impuestos si su ingreso es $84,000 o menos.',
+    url: 'https://www.irs.gov/filing/free-file-do-your-federal-taxes-for-free',
+    incomeLimit: 84000,
+  },
+  {
+    name: 'VITA (Free Tax Help)',
+    nameEs: 'VITA (Ayuda Tributaria Gratuita)',
+    description: 'Free in-person tax preparation at community locations. For people earning $67,000 or less.',
+    descriptionEs: 'Preparación gratuita de impuestos en persona en ubicaciones comunitarias. Para personas que ganan $67,000 o menos.',
+    url: 'https://irs.treasury.gov/freetaxprep/',
+    incomeLimit: 67000,
+  },
+  {
+    name: 'IRS Direct File',
+    nameEs: 'IRS Direct File',
+    description: 'File your federal return directly with the IRS for free. Available in participating states.',
+    descriptionEs: 'Presente su declaración federal directamente con el IRS de forma gratuita. Disponible en estados participantes.',
+    url: 'https://directfile.irs.gov/',
+    incomeLimit: null,
+  },
+];
