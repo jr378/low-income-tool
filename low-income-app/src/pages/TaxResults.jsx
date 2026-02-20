@@ -65,7 +65,7 @@ export default function TaxResults({ results, answers }) {
               key={r.credit.id}
               credit={r.credit}
               status={r.status}
-              reason={r.reason}
+              reason={t(r.reasonKey, r.reasonParams)}
               estimatedAmount={r.estimatedAmount}
             />
           ))}
@@ -83,7 +83,7 @@ export default function TaxResults({ results, answers }) {
                 key={r.credit.id}
                 credit={r.credit}
                 status={r.status}
-                reason={r.reason}
+                reason={t(r.reasonKey, r.reasonParams)}
                 estimatedAmount={r.estimatedAmount}
               />
             ))}
