@@ -126,6 +126,7 @@ export function checkAllTaxCredits(answers) {
  * Returns total estimated annual value from eligible tax credits
  */
 export function getTotalEstimatedCredits(results) {
+  if (!results) return 0;
   return results
     .filter(r => r.status === 'eligible')
     .reduce((sum, r) => sum + r.estimatedAmount, 0);

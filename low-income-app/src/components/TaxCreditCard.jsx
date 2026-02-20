@@ -49,7 +49,7 @@ export default function TaxCreditCard({ credit, status, reason, estimatedAmount 
       )}
       {credit.refundable && status === 'eligible' && (
         <p className="text-xs text-green-600 mb-2">
-          {isEs ? 'Reembolsable — recibe dinero incluso si no debe impuestos' : 'Refundable — you get money back even if you owe no tax'}
+          {t('results.refundable')}
         </p>
       )}
       {status !== 'unlikely' && requirements && (

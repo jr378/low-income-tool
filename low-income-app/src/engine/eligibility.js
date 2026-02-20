@@ -159,9 +159,6 @@ function checkProgram(program, data) {
     }
 
     case 'pell': {
-      if (!isStudent && age > 30) {
-        return result(program, 'unlikely', 'Pell Grants are for students enrolled in college. If you\'re planning to enroll, you could qualify.');
-      }
       if (percentFPL <= 175) {
         return result(program, 'eligible', 'Based on your income, you would likely receive a significant Pell Grant if enrolled in college.');
       }

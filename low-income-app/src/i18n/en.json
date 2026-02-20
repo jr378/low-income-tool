@@ -19,9 +19,20 @@
   "screener": {
     "stateQuestion": "What state do you live in?",
     "householdSizeQuestion": "How many people live in your household? (Include yourself, your spouse, and anyone you support financially.)",
-    "incomeQuestion": "What is your household's total annual income before taxes? (Your best estimate is fine.)",
+    "incomeQuestion": "How much money does your household make before taxes? (Your best guess is fine.)",
     "incomePlaceholder": "e.g. 25000",
-    "incomeHelp": "Include wages, salary, tips, self-employment income, and any other regular income for everyone in your household.",
+    "incomeHelp": "Include pay from jobs, tips, side work, and any other regular money coming in for everyone in your home.",
+    "freq_yearly": "Per Year",
+    "freq_monthly": "Per Month",
+    "freq_biweekly": "Every 2 Weeks",
+    "freq_weekly": "Per Week",
+    "freq_hourly": "Per Hour",
+    "incomePlaceholder_yearly": "e.g. 25000",
+    "incomePlaceholder_monthly": "e.g. 2000",
+    "incomePlaceholder_biweekly": "e.g. 1000",
+    "incomePlaceholder_weekly": "e.g. 500",
+    "incomePlaceholder_hourly": "e.g. 15",
+    "incomeAnnualEstimate": "That's about ${{amount}} per year",
     "ageQuestion": "How old are you?",
     "agePlaceholder": "e.g. 35",
     "pregnantQuestion": "Is anyone in your household currently pregnant?",
@@ -62,6 +73,17 @@
     "printResults": "Print / Save Results",
     "eligible_count": "{{count}} programs you likely qualify for",
     "likely_count": "{{count}} programs you may qualify for",
-    "total_annual_value": "Estimated total annual value"
+    "total_annual_value": "Estimated total annual value",
+    "refundable": "Refundable \u2014 you get money back even if you owe no tax",
+    "unlikely_programs_one": "{{count}} program you probably don't qualify for",
+    "unlikely_programs_other": "{{count}} programs you probably don't qualify for",
+    "unlikely_credits_one": "{{count}} credit you probably don't qualify for",
+    "unlikely_credits_other": "{{count}} credits you probably don't qualify for"
+  },
+  "home": {
+    "quickScreener": "Quick screener",
+    "programsChecked": "Programs checked",
+    "alwaysFree": "Always free",
+    "timeEstimate": "2 min"
   }
 }

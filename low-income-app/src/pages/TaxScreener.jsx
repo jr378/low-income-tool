@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import ProgressBar from '../components/ProgressBar';
 import Question from '../components/Question';
+import IncomeInput from '../components/IncomeInput';
 
 const TOTAL_STEPS = 8;
 
@@ -13,7 +14,7 @@ export default function TaxScreener({ onComplete, prefill }) {
   const [answers, setAnswers] = useState({
     annualIncome: prefill?.annualIncome ?? null,
     filingStatus: null,
-    numChildren: prefill?.hasChildrenUnder18 ? null : 0,
+    numChildren: prefill?.hasChildrenUnder18 === true ? null : (prefill?.hasChildrenUnder18 === false ? 0 : null),
     childrenUnder17: null,
     age: prefill?.age ?? null,
     isStudent: null,
@@ -85,12 +86,9 @@ export default function TaxScreener({ onComplete, prefill }) {
         />
       )}
       {step === 2 && (
-        <Question
-          question={t('screener.incomeQuestion')}
-          type="number"
+        <IncomeInput
           value={answers.annualIncome}
           onChange={(v) => update('annualIncome', v)}
-          placeholder={t('screener.incomePlaceholder')}
           helpText={t('screener.incomeHelp')}
         />
       )}
