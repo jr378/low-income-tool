@@ -123,13 +123,14 @@ export default function TaxScreener({ onComplete, prefill, onBack }) {
       {currentStepId === 'filingStatus' && (
         <Question
           question={t('screener.filingStatusQuestion')}
+          helpText={t('screener.filingStatusHelp')}
           type="radio"
           value={answers.filingStatus}
           onChange={(v) => update('filingStatus', v)}
           options={[
-            { value: 'single', label: t('screener.filingSingle') },
-            { value: 'married', label: t('screener.filingMarried') },
-            { value: 'hoh', label: t('screener.filingHoh') },
+            { value: 'single', label: t('screener.filingSingle'), description: t('screener.filingSingleDesc') },
+            { value: 'married', label: t('screener.filingMarried'), description: t('screener.filingMarriedDesc') },
+            { value: 'hoh', label: t('screener.filingHoh'), description: t('screener.filingHohDesc') },
           ]}
         />
       )}

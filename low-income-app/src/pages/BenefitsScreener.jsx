@@ -104,6 +104,7 @@ export default function BenefitsScreener({ onComplete }) {
       {step === 5 && (
         <Question
           question={t('screener.pregnantQuestion')}
+          helpText={t('screener.pregnantHelp')}
           type="yesno"
           value={answers.isPregnant}
           onChange={(v) => update('isPregnant', v)}
