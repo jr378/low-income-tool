@@ -1,7 +1,10 @@
 import { useState } from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import Header from './components/Header';
+import Footer from './components/Footer';
 import Home from './pages/Home';
+import About from './pages/About';
+import Privacy from './pages/Privacy';
 import BenefitsScreener from './pages/BenefitsScreener';
 import TaxScreener from './pages/TaxScreener';
 import BenefitsResults from './pages/BenefitsResults';
@@ -17,11 +20,13 @@ export default function App() {
   const [mode, setMode] = useState(null);
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 flex flex-col">
       <Header />
-      <main className="pb-12">
+      <main className="pb-12 flex-1">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/privacy" element={<Privacy />} />
 
           <Route
             path="/screener/benefits"
@@ -82,6 +87,7 @@ export default function App() {
           />
         </Routes>
       </main>
+      <Footer />
     </div>
   );
 }

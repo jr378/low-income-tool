@@ -3,8 +3,37 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BenefitsBot - Find Benefits You Qualify For</title>
-    <meta name="description" content="Free tool to check your eligibility for government benefits, tax credits, and assistance programs. No login required." />
+    <title>BenefitsBot - Find Benefits & Tax Credits You Qualify For</title>
+    <meta name="description" content="Free tool to check your eligibility for SNAP, Medicaid, WIC, EITC, Child Tax Credit, and 9+ government programs. No login, no data collected. Available in English and Spanish." />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="BenefitsBot - Find Benefits You Qualify For" />
+    <meta property="og:description" content="Answer a few questions to see which government benefits and tax credits could help you and your family. Free, private, no login required." />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="es_US" />
+
+    <!-- Additional SEO -->
+    <meta name="robots" content="index, follow" />
+    <meta name="keywords" content="benefits eligibility, SNAP, food stamps, Medicaid, WIC, EITC, child tax credit, government assistance, benefits calculator, tax credits" />
+    <!-- Schema.org structured data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "BenefitsBot",
+      "description": "Free eligibility screener for government benefits and tax credits",
+      "applicationCategory": "GovernmentBenefits",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "inLanguage": ["en", "es"],
+      "isAccessibleForFree": true
+    }
+    </script>
   </head>
   <body>
     <div id="root"></div>

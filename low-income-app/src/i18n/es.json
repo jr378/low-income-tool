@@ -85,5 +85,45 @@
     "programsChecked": "Programas verificados",
     "alwaysFree": "Siempre gratis",
     "timeEstimate": "2 min"
+  },
+  "footer": {
+    "notGovernment": "Este no es un sitio web del gobierno. Esta herramienta proporciona solo estimaciones y no est\u00e1 afiliada a ninguna agencia gubernamental federal, estatal o local.",
+    "about": "Acerca de y Aviso Legal",
+    "privacy": "Pol\u00edtica de Privacidad"
+  },
+  "about": {
+    "title": "Acerca de Esta Herramienta",
+    "disclaimerTitle": "Aviso Legal Importante",
+    "notGovernment": "Esta herramienta NO est\u00e1 afiliada a ninguna agencia gubernamental. Es una herramienta independiente y gratuita creada para ayudar a las personas a encontrar programas para los que pueden calificar.",
+    "estimatesOnly": "Todos los resultados son solo estimaciones. Esta herramienta no determina su elegibilidad para ning\u00fan programa. Solo las agencias gubernamentales que administran estos programas pueden determinar si usted califica.",
+    "notLegalAdvice": "Esto no es asesoramiento legal, financiero ni tributario. Recomendamos consultar con un profesional calificado o contactar directamente a la agencia correspondiente.",
+    "alwaysApply": "Siempre aplique directamente con el programa para confirmar su elegibilidad. Las reglas de elegibilidad son complejas y var\u00edan seg\u00fan el estado. Nuestras estimaciones pueden no considerar todos los factores.",
+    "sourcesTitle": "Fuentes de Datos",
+    "dataAsOf": "Datos actualizados a enero de 2025. Los Niveles Federales de Pobreza, montos de beneficios y cifras de cr\u00e9ditos tributarios se actualizan anualmente.",
+    "howItWorksTitle": "C\u00f3mo Funciona Esta Herramienta",
+    "howItWorks1": "Esta herramienta funciona completamente en su navegador web. Sus respuestas nunca se env\u00edan a ning\u00fan servidor \u2014 todos los c\u00e1lculos ocurren en su dispositivo.",
+    "howItWorks2": "Comparamos sus respuestas con las gu\u00edas federales de elegibilidad publicadas (l\u00edmites de ingresos, reglas de tama\u00f1o del hogar, etc.) para estimar para qu\u00e9 programas podr\u00eda calificar.",
+    "howItWorks3": "La elegibilidad real es m\u00e1s compleja de lo que podemos verificar aqu\u00ed. Muchos programas tienen requisitos adicionales sobre activos, ciudadan\u00eda, historial laboral y otros factores que var\u00edan seg\u00fan el estado.",
+    "needHelpTitle": "\u00bfNecesita M\u00e1s Ayuda?",
+    "needHelp211": "Marque 2-1-1 desde cualquier tel\u00e9fono para referencias gratuitas y confidenciales a programas de asistencia locales, incluyendo alimentos, vivienda, servicios p\u00fablicos, atenci\u00f3n m\u00e9dica y m\u00e1s.",
+    "needHelpVita": "Para ayuda gratuita con la preparaci\u00f3n de impuestos, visite un sitio VITA (Asistencia Voluntaria de Impuestos sobre la Renta) cerca de usted: irs.treasury.gov/freetaxprep",
+    "privacyLink": "Pol\u00edtica de Privacidad"
+  },
+  "privacy": {
+    "title": "Pol\u00edtica de Privacidad",
+    "summaryTitle": "La Versi\u00f3n Corta",
+    "summaryText": "No recopilamos nada. Sus respuestas nunca salen de su dispositivo. No hay cuentas, no hay rastreo y no hay cookies.",
+    "whatWeCollectTitle": "Qu\u00e9 Recopilamos",
+    "whatWeCollect": "Nada. Esta herramienta no recopila, almacena ni transmite ninguna informaci\u00f3n personal. Todas sus respuestas se procesan completamente en su navegador web y nunca se env\u00edan a ning\u00fan servidor.",
+    "howItWorksTitle": "C\u00f3mo Funciona",
+    "howItWorks": "Cuando responde preguntas, los c\u00e1lculos de elegibilidad se ejecutan en JavaScript directamente en su navegador. No se env\u00edan datos por internet. Cuando cierra o actualiza la p\u00e1gina, sus respuestas desaparecen.",
+    "cookiesTitle": "Cookies y Rastreo",
+    "cookies": "Esta herramienta no utiliza cookies, rastreadores de an\u00e1lisis ni ninguna otra tecnolog\u00eda de rastreo. No usamos Google Analytics ni ning\u00fan servicio similar. Su preferencia de idioma se almacena en el almacenamiento local de su navegador para que no tenga que seleccionarlo de nuevo en cada visita.",
+    "thirdPartyTitle": "Enlaces a Terceros",
+    "thirdParty": "Nuestras p\u00e1ginas de resultados incluyen enlaces a sitios web oficiales del gobierno (IRS.gov, Healthcare.gov, SSA.gov, etc.) donde puede solicitar programas. Cuando hace clic en estos enlaces, sale de nuestro sitio y est\u00e1 sujeto a las pol\u00edticas de privacidad de esos sitios.",
+    "childrenTitle": "Privacidad de los Ni\u00f1os",
+    "children": "Dado que no recopilamos ning\u00fan dato, no hay preocupaciones especiales con respecto a la privacidad de los ni\u00f1os (COPPA). Ninguna informaci\u00f3n personal de ning\u00fan usuario, de ninguna edad, se recopila ni almacena.",
+    "changesTitle": "Cambios a Esta Pol\u00edtica",
+    "changes": "Si alguna vez cambiamos el funcionamiento de esta herramienta de una manera que afecte la privacidad, actualizaremos esta p\u00e1gina. Como actualmente no recopilamos nada, cualquier cambio se notar\u00e1 claramente aqu\u00ed."
   }
 }

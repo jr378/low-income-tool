@@ -2,15 +2,22 @@ import { useTranslation } from 'react-i18next';
 
 export default function ProgressBar({ current, total }) {
   const { t } = useTranslation();
-  const percent = Math.round((current / total) * 100);
+  const percent = total > 0 ? Math.round((current / total) * 100) : 0;
 
   return (
     <div className="mb-6">
-      <div className="flex justify-between text-sm text-gray-500 mb-1">
+      <div className="flex justify-between text-sm text-gray-600 mb-1">
         <span>{t('screener.step', { current, total })}</span>
         <span>{t('screener.progress', { percent })}</span>
       </div>
-      <div className="w-full bg-gray-200 rounded-full h-2">
+      <div
+        className="w-full bg-gray-200 rounded-full h-2"
+        role="progressbar"
+        aria-valuenow={current}
+        aria-valuemin={1}
+        aria-valuemax={total}
+        aria-label={t('screener.step', { current, total })}
+      >
         <div
           className="bg-blue-600 h-2 rounded-full transition-all duration-300"
           style={{ width: `${percent}%` }}

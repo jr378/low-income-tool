@@ -66,7 +66,7 @@
     "requirements": "Key Requirements",
     "learnMore": "Learn More & Apply",
     "freeFilingTitle": "Free Tax Filing Resources",
-    "freeFilingSubtitle": "Don't pay for tax prep — these resources are free for you:",
+    "freeFilingSubtitle": "Don't pay for tax prep \u2014 these resources are free for you:",
     "noResults": "Based on your answers, you may not qualify for the programs we checked. However, eligibility rules are complex and vary by state. We recommend contacting your local benefits office or dialing 211 for more help.",
     "disclaimer": "This tool provides estimates only. Actual eligibility is determined by the agencies that run these programs. Income limits and benefit amounts may change. Always apply directly to confirm your eligibility.",
     "dial211": "You can also dial 2-1-1 for free referrals to local assistance programs.",
@@ -85,5 +85,45 @@
     "programsChecked": "Programs checked",
     "alwaysFree": "Always free",
     "timeEstimate": "2 min"
+  },
+  "footer": {
+    "notGovernment": "This is not a government website. This tool provides estimates only and is not affiliated with any federal, state, or local government agency.",
+    "about": "About & Disclaimer",
+    "privacy": "Privacy Policy"
+  },
+  "about": {
+    "title": "About This Tool",
+    "disclaimerTitle": "Important Disclaimer",
+    "notGovernment": "This tool is NOT affiliated with any government agency. It is an independent, free tool built to help people find programs they may qualify for.",
+    "estimatesOnly": "All results are estimates only. This tool does not determine your eligibility for any program. Only the government agencies that run these programs can determine if you qualify.",
+    "notLegalAdvice": "This is not legal, financial, or tax advice. We recommend consulting with a qualified professional or contacting the relevant agency directly.",
+    "alwaysApply": "Always apply directly with the program to confirm your eligibility. Eligibility rules are complex and vary by state. Our estimates may not account for all factors.",
+    "sourcesTitle": "Data Sources",
+    "dataAsOf": "Data current as of January 2025. Federal Poverty Levels, benefit amounts, and tax credit figures are updated annually.",
+    "howItWorksTitle": "How This Tool Works",
+    "howItWorks1": "This tool runs entirely in your web browser. Your answers are never sent to any server \u2014 all calculations happen on your device.",
+    "howItWorks2": "We compare your answers against published federal eligibility guidelines (income limits, household size rules, etc.) to estimate which programs you might qualify for.",
+    "howItWorks3": "Real eligibility is more complex than what we can check here. Many programs have additional requirements around assets, citizenship, work history, and other factors that vary by state.",
+    "needHelpTitle": "Need More Help?",
+    "needHelp211": "Dial 2-1-1 from any phone for free, confidential referrals to local assistance programs including food, housing, utilities, health care, and more.",
+    "needHelpVita": "For free tax preparation help, visit a VITA (Volunteer Income Tax Assistance) site near you: irs.treasury.gov/freetaxprep",
+    "privacyLink": "Privacy Policy"
+  },
+  "privacy": {
+    "title": "Privacy Policy",
+    "summaryTitle": "The Short Version",
+    "summaryText": "We collect nothing. Your answers never leave your device. There are no accounts, no tracking, and no cookies.",
+    "whatWeCollectTitle": "What We Collect",
+    "whatWeCollect": "Nothing. This tool does not collect, store, or transmit any personal information. All of your answers are processed entirely in your web browser and are never sent to any server.",
+    "howItWorksTitle": "How It Works",
+    "howItWorks": "When you answer questions, the eligibility calculations run in JavaScript directly in your browser. No data is sent over the internet. When you close or refresh the page, your answers are gone.",
+    "cookiesTitle": "Cookies & Tracking",
+    "cookies": "This tool does not use cookies, analytics trackers, or any other tracking technology. We do not use Google Analytics or any similar service. Your language preference is stored in your browser's local storage so you don't have to re-select it each visit.",
+    "thirdPartyTitle": "Third-Party Links",
+    "thirdParty": "Our results pages include links to official government websites (IRS.gov, Healthcare.gov, SSA.gov, etc.) where you can apply for programs. When you click these links, you leave our site and are subject to those sites' own privacy policies.",
+    "childrenTitle": "Children's Privacy",
+    "children": "Because we collect no data whatsoever, there are no special concerns regarding children's privacy (COPPA). No personal information from any user, of any age, is ever collected or stored.",
+    "changesTitle": "Changes to This Policy",
+    "changes": "If we ever change how this tool works in a way that affects privacy, we will update this page. Because we currently collect nothing, any change would be clearly noted here."
   }
 }
