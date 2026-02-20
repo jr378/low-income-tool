@@ -78,7 +78,20 @@
     "unlikely_programs_one": "{{count}} program you probably don't qualify for",
     "unlikely_programs_other": "{{count}} programs you probably don't qualify for",
     "unlikely_credits_one": "{{count}} credit you probably don't qualify for",
-    "unlikely_credits_other": "{{count}} credits you probably don't qualify for"
+    "unlikely_credits_other": "{{count}} credits you probably don't qualify for",
+    "applyNow": "Apply Now — It's Free",
+    "perMonth": "/month",
+    "monthlyBreakdown": "That's about ${{amount}} every month",
+    "benefitsHero": "Good news — you may qualify for {{count}} programs",
+    "benefitsHeroSub": "Many people miss benefits they're eligible for. Don't leave help on the table.",
+    "taxCreditsHero": "You could get back up to",
+    "taxCreditsHeroSub": "This is money you may be owed — file your taxes to claim it",
+    "nextSteps": "Your Next Steps",
+    "nextStep1": "Save or print this page so you have it handy",
+    "nextStep2": "Tap \"Apply Now\" on any program above to get started",
+    "nextStep3": "Call 2-1-1 (free) if you need help with any application",
+    "freeToApply": "Free to apply",
+    "fileToGetMoney": "File your taxes to get this money"
   },
   "home": {
     "quickScreener": "Quick screener",

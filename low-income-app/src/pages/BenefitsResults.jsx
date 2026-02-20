@@ -24,15 +24,20 @@ export default function BenefitsResults({ results, answers }) {
   const eligible = results.filter(r => r.status === 'eligible');
   const likely = results.filter(r => r.status === 'likely');
   const unlikely = results.filter(r => r.status === 'unlikely');
+  const actionable = eligible.length + likely.length;
 
   return (
     <div className="max-w-2xl mx-auto px-4 py-6">
       <h2 className="text-2xl font-bold text-gray-900 mb-2">{t('results.benefitsTitle')}</h2>
 
-      {eligible.length > 0 && (
-        <div className="bg-green-50 border border-green-200 rounded-xl p-4 mb-6">
-          <p className="text-green-800 font-semibold text-lg">
-            {t('results.eligible_count', { count: eligible.length })}
+      {/* Nudge Hero: Loss-aversion framing + salience */}
+      {actionable > 0 && (
+        <div className="bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-300 rounded-2xl p-5 mb-6 text-center">
+          <p className="text-xl font-bold text-green-900 mb-2">
+            {t('results.benefitsHero', { count: actionable })}
+          </p>
+          <p className="text-sm text-green-700">
+            {t('results.benefitsHeroSub')}
           </p>
         </div>
       )}
@@ -87,9 +92,29 @@ export default function BenefitsResults({ results, answers }) {
         </details>
       )}
 
-      <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-4">
-        <p className="text-sm text-blue-800">{t('results.disclaimer')}</p>
-        <p className="text-sm text-blue-700 mt-2">{t('results.dial211')}</p>
+      {/* Nudge: Clear next steps — reduce decision paralysis */}
+      {actionable > 0 && (
+        <div className="bg-blue-50 border-2 border-blue-200 rounded-2xl p-5 mb-6">
+          <h3 className="text-lg font-bold text-blue-900 mb-3">{t('results.nextSteps')}</h3>
+          <ol className="space-y-2 text-sm text-blue-800">
+            <li className="flex items-start">
+              <span className="flex-shrink-0 w-6 h-6 bg-blue-200 text-blue-800 rounded-full flex items-center justify-center text-xs font-bold mr-3 mt-0.5">1</span>
+              <span>{t('results.nextStep1')}</span>
+            </li>
+            <li className="flex items-start">
+              <span className="flex-shrink-0 w-6 h-6 bg-blue-200 text-blue-800 rounded-full flex items-center justify-center text-xs font-bold mr-3 mt-0.5">2</span>
+              <span>{t('results.nextStep2')}</span>
+            </li>
+            <li className="flex items-start">
+              <span className="flex-shrink-0 w-6 h-6 bg-blue-200 text-blue-800 rounded-full flex items-center justify-center text-xs font-bold mr-3 mt-0.5">3</span>
+              <span>{t('results.nextStep3')}</span>
+            </li>
+          </ol>
+        </div>
+      )}
+
+      <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 mb-4">
+        <p className="text-sm text-gray-600">{t('results.disclaimer')}</p>
       </div>
 
       <div className="flex gap-3 mt-6">
