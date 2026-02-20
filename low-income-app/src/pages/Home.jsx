@@ -47,16 +47,16 @@ export default function Home() {
 
       <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
         <div className="bg-white rounded-xl p-4 border border-gray-100">
-          <div className="text-2xl mb-1">2 min</div>
-          <div className="text-sm text-gray-500">Quick screener</div>
+          <div className="text-2xl mb-1">{t('home.timeEstimate')}</div>
+          <div className="text-sm text-gray-500">{t('home.quickScreener')}</div>
         </div>
         <div className="bg-white rounded-xl p-4 border border-gray-100">
           <div className="text-2xl mb-1">9+</div>
-          <div className="text-sm text-gray-500">Programs checked</div>
+          <div className="text-sm text-gray-500">{t('home.programsChecked')}</div>
         </div>
         <div className="bg-white rounded-xl p-4 border border-gray-100">
           <div className="text-2xl mb-1">$0</div>
-          <div className="text-sm text-gray-500">Always free</div>
+          <div className="text-sm text-gray-500">{t('home.alwaysFree')}</div>
         </div>
       </div>
     </div>

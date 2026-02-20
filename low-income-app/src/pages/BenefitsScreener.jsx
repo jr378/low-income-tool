@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { STATES } from '../data/states';
 import ProgressBar from '../components/ProgressBar';
 import Question from '../components/Question';
+import IncomeInput from '../components/IncomeInput';
 
 const TOTAL_STEPS = 9;
 
@@ -85,12 +86,9 @@ export default function BenefitsScreener({ onComplete }) {
         />
       )}
       {step === 3 && (
-        <Question
-          question={t('screener.incomeQuestion')}
-          type="number"
+        <IncomeInput
           value={answers.annualIncome}
           onChange={(v) => update('annualIncome', v)}
-          placeholder={t('screener.incomePlaceholder')}
           helpText={t('screener.incomeHelp')}
         />
       )}

@@ -71,7 +71,7 @@ export default function BenefitsResults({ results, answers }) {
       {unlikely.length > 0 && (
         <details className="mb-6">
           <summary className="text-gray-500 cursor-pointer hover:text-gray-700 font-medium">
-            {unlikely.length} {unlikely.length === 1 ? 'program' : 'programs'} you probably don't qualify for
+            {t('results.unlikely_programs', { count: unlikely.length })}
           </summary>
           <div className="mt-3">
             {unlikely.map(r => (

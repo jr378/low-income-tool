@@ -9,6 +9,20 @@ export default function TaxResults({ results, answers }) {
   const navigate = useNavigate();
   const isEs = i18n.language === 'es';
 
+  if (!results || results.length === 0) {
+    return (
+      <div className="max-w-2xl mx-auto px-4 py-8 text-center">
+        <p className="text-gray-600">{t('results.noResults')}</p>
+        <button
+          onClick={() => navigate('/')}
+          className="mt-6 py-3 px-6 bg-blue-600 text-white rounded-xl font-medium hover:bg-blue-700"
+        >
+          {t('app.startOver')}
+        </button>
+      </div>
+    );
+  }
+
   const totalCredits = getTotalEstimatedCredits(results);
   const eligible = results.filter(r => r.status === 'eligible');
   const unlikely = results.filter(r => r.status === 'unlikely');
@@ -48,7 +62,7 @@ export default function TaxResults({ results, answers }) {
       {unlikely.length > 0 && (
         <details className="mb-6">
           <summary className="text-gray-500 cursor-pointer hover:text-gray-700 font-medium">
-            {unlikely.length} {unlikely.length === 1 ? 'credit' : 'credits'} you probably don't qualify for
+            {t('results.unlikely_credits', { count: unlikely.length })}
           </summary>
           <div className="mt-3">
             {unlikely.map(r => (

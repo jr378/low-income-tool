@@ -23,8 +23,10 @@ export function getFPL(householdSize, state) {
 }
 
 export function getPercentFPL(annualIncome, householdSize, state) {
-  const fpl = getFPL(householdSize, state);
-  return (annualIncome / fpl) * 100;
+  const income = Math.max(0, annualIncome || 0);
+  const size = Math.max(1, householdSize || 1);
+  const fpl = getFPL(size, state);
+  return (income / fpl) * 100;
 }
 
 export function getIncomeAtPercent(percent, householdSize, state) {
