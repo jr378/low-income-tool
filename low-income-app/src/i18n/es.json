@@ -78,7 +78,20 @@
     "unlikely_programs_one": "{{count}} programa para el que probablemente no califica",
     "unlikely_programs_other": "{{count}} programas para los que probablemente no califica",
     "unlikely_credits_one": "{{count}} cr\u00e9dito para el que probablemente no califica",
-    "unlikely_credits_other": "{{count}} cr\u00e9ditos para los que probablemente no califica"
+    "unlikely_credits_other": "{{count}} cr\u00e9ditos para los que probablemente no califica",
+    "applyNow": "Aplicar Ahora — Es Gratis",
+    "perMonth": "/mes",
+    "monthlyBreakdown": "Eso es aproximadamente ${{amount}} cada mes",
+    "benefitsHero": "Buenas noticias — puede calificar para {{count}} programas",
+    "benefitsHeroSub": "Muchas personas no aprovechan los beneficios para los que son elegibles. No deje ayuda sin reclamar.",
+    "taxCreditsHero": "Podr\u00eda recibir hasta",
+    "taxCreditsHeroSub": "Este es dinero que le pueden deber — declare sus impuestos para reclamarlo",
+    "nextSteps": "Sus Pr\u00f3ximos Pasos",
+    "nextStep1": "Guarde o imprima esta p\u00e1gina para tenerla a mano",
+    "nextStep2": "Toque \"Aplicar Ahora\" en cualquier programa arriba para comenzar",
+    "nextStep3": "Llame al 2-1-1 (gratis) si necesita ayuda con alguna solicitud",
+    "freeToApply": "Gratis para aplicar",
+    "fileToGetMoney": "Declare sus impuestos para obtener este dinero"
   },
   "home": {
     "quickScreener": "Evaluaci\u00f3n r\u00e1pida",

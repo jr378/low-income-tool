@@ -42,23 +42,35 @@ export default function ProgramCard({ program, status, reason, estimatedBenefit,
           {style.icon} {t(`results.${status}`)}
         </span>
       </div>
-      <p className="text-gray-700 text-sm mb-2">{description}</p>
+      <p className="text-gray-700 text-sm mb-3">{description}</p>
       {reason && (
-        <p className="text-sm text-gray-600 italic mb-2">{reason}</p>
+        <p className="text-sm text-gray-600 italic mb-3">{reason}</p>
       )}
+
+      {/* Nudge: Make estimated value large and unmissable */}
       {benefit && status !== 'unlikely' && (
-        <p className="text-sm font-medium text-green-700 mb-2">
-          {t('results.estimatedValue')}: {benefit}
-        </p>
+        <div className="bg-white border border-green-300 rounded-lg p-3 mb-3">
+          <p className="text-xs font-medium text-green-600 uppercase tracking-wide mb-1">
+            {t('results.estimatedValue')}
+          </p>
+          <p className="text-xl font-bold text-green-800">
+            {benefit}
+          </p>
+        </div>
       )}
+
+      {/* Nudge: Big, clear Apply button — reduce friction */}
       {status !== 'unlikely' && program.applyUrl && (
         <a
           href={program.applyUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-block mt-1 text-sm font-medium text-blue-600 hover:text-blue-800 underline"
+          className="flex items-center justify-center w-full py-3 px-4 bg-green-600 hover:bg-green-700 text-white text-base font-semibold rounded-xl transition-colors no-underline shadow-sm"
         >
-          {t('results.learnMore')} →
+          {t('results.applyNow')}
+          <svg className="w-4 h-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+          </svg>
         </a>
       )}
     </div>
