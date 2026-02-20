@@ -35,6 +35,7 @@ export function checkAllTaxCredits(answers) {
   // EITC
   {
     const credit = TAX_CREDITS.find(c => c.id === 'eitc');
+    if (!credit) throw new Error('EITC credit definition missing from TAX_CREDITS');
     const tierIndex = Math.min(numChildren, 3);
     const tier = credit.tiers[tierIndex];
     const incomeLimit = isMarried ? tier.incomeLimitMarried : tier.incomeLimitSingle;
@@ -54,6 +55,7 @@ export function checkAllTaxCredits(answers) {
   // CTC
   {
     const credit = TAX_CREDITS.find(c => c.id === 'ctc');
+    if (!credit) throw new Error('CTC credit definition missing from TAX_CREDITS');
     if (childrenUnder17 > 0) {
       const phaseOut = isMarried ? credit.phaseOutMarried : credit.phaseOutSingle;
       if (annualIncome <= phaseOut) {
@@ -77,6 +79,7 @@ export function checkAllTaxCredits(answers) {
   // Saver's Credit
   {
     const credit = TAX_CREDITS.find(c => c.id === 'savers');
+    if (!credit) throw new Error('Savers credit definition missing from TAX_CREDITS');
     if (age < 18 || isStudent) {
       results.push({ credit, status: 'unlikely', estimatedAmount: 0, reason: 'Must be 18+ and not a full-time student.' });
     } else if (!contributesToRetirement) {
@@ -104,6 +107,7 @@ export function checkAllTaxCredits(answers) {
   // American Opportunity Credit
   {
     const credit = TAX_CREDITS.find(c => c.id === 'aoc');
+    if (!credit) throw new Error('AOC credit definition missing from TAX_CREDITS');
     if (!isEnrolledInCollege) {
       results.push({ credit, status: 'unlikely', estimatedAmount: 0, reason: 'This credit is for students enrolled at least half-time in college. If you plan to enroll, you could qualify.' });
     } else {

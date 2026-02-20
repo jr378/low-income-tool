@@ -1,0 +1,16 @@
+{
+  "name": "BenefitsBot - Find Benefits & Tax Credits",
+  "short_name": "BenefitsBot",
+  "description": "Free tool to check your eligibility for government benefits and tax credits",
+  "start_url": "/low-income-tool/",
+  "display": "standalone",
+  "background_color": "#f9fafb",
+  "theme_color": "#2563eb",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

@@ -1,21 +1,33 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import ProgressBar from '../components/ProgressBar';
 import Question from '../components/Question';
 import IncomeInput from '../components/IncomeInput';
 
-const TOTAL_STEPS = 8;
+// All possible step IDs in order
+const ALL_STEPS = [
+  'filingStatus',
+  'income',
+  'numChildren',
+  'childrenUnder17',
+  'age',
+  'employed',
+  'studentRetirement',
+  'college',
+];
 
-export default function TaxScreener({ onComplete, prefill }) {
+export default function TaxScreener({ onComplete, prefill, onBack }) {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [step, setStep] = useState(1);
+
+  const noChildrenFromPrefill = prefill?.hasChildrenUnder18 === false;
+
   const [answers, setAnswers] = useState({
     annualIncome: prefill?.annualIncome ?? null,
     filingStatus: null,
-    numChildren: prefill?.hasChildrenUnder18 === true ? null : (prefill?.hasChildrenUnder18 === false ? 0 : null),
-    childrenUnder17: null,
+    numChildren: noChildrenFromPrefill ? 0 : null,
+    childrenUnder17: noChildrenFromPrefill ? 0 : null,
     age: prefill?.age ?? null,
     isStudent: null,
     isEmployed: prefill?.isEmployed ?? null,
@@ -23,56 +35,92 @@ export default function TaxScreener({ onComplete, prefill }) {
     isEnrolledInCollege: null,
   });
 
+  // Build the list of steps the user actually needs to see.
+  // Steps already answered via prefill are skipped entirely.
+  const visibleSteps = useMemo(() => {
+    return ALL_STEPS.filter(stepId => {
+      if (!prefill) return true;
+      if (stepId === 'income' && prefill.annualIncome != null) return false;
+      if (stepId === 'age' && prefill.age != null) return false;
+      if (stepId === 'employed' && prefill.isEmployed != null) return false;
+      // If benefits screener said no children under 18, skip both children questions
+      if (stepId === 'numChildren' && noChildrenFromPrefill) return false;
+      if (stepId === 'childrenUnder17' && noChildrenFromPrefill) return false;
+      return true;
+    });
+  }, [prefill, noChildrenFromPrefill]);
+
+  const [stepIndex, setStepIndex] = useState(0);
+  const currentStepId = visibleSteps[stepIndex];
+  const totalVisible = visibleSteps.length;
+
   const update = (key, value) => {
     setAnswers(prev => ({ ...prev, [key]: value }));
   };
 
   const canProceed = () => {
-    switch (step) {
-      case 1: return answers.filingStatus !== null;
-      case 2: return answers.annualIncome !== null && answers.annualIncome >= 0;
-      case 3: return answers.numChildren !== null && answers.numChildren >= 0;
-      case 4: return answers.childrenUnder17 !== null && answers.childrenUnder17 >= 0;
-      case 5: return answers.age !== null && answers.age > 0;
-      case 6: return answers.isEmployed !== null;
-      case 7: return answers.isStudent !== null && answers.contributesToRetirement !== null;
-      case 8: return answers.isEnrolledInCollege !== null;
+    switch (currentStepId) {
+      case 'filingStatus': return answers.filingStatus !== null;
+      case 'income': return answers.annualIncome !== null && answers.annualIncome >= 0;
+      case 'numChildren': return answers.numChildren !== null && answers.numChildren >= 0;
+      case 'childrenUnder17': return answers.childrenUnder17 !== null && answers.childrenUnder17 >= 0;
+      case 'age': return answers.age !== null && answers.age > 0;
+      case 'employed': return answers.isEmployed !== null;
+      case 'studentRetirement': return answers.isStudent !== null && answers.contributesToRetirement !== null;
+      case 'college': return answers.isEnrolledInCollege !== null;
       default: return false;
     }
   };
 
   const handleNext = () => {
-    if (step < TOTAL_STEPS) {
-      // Skip children under 17 question if no children
-      if (step === 3 && answers.numChildren === 0) {
+    if (stepIndex < totalVisible - 1) {
+      let nextIndex = stepIndex + 1;
+      // Skip childrenUnder17 step if user said 0 children
+      if (currentStepId === 'numChildren' && answers.numChildren === 0) {
         setAnswers(prev => ({ ...prev, childrenUnder17: 0 }));
-        setStep(step + 2);
-        return;
+        const under17Index = visibleSteps.indexOf('childrenUnder17');
+        if (under17Index === nextIndex) {
+          nextIndex++;
+        }
       }
-      setStep(step + 1);
+      if (nextIndex >= totalVisible) {
+        onComplete(answers);
+      } else {
+        setStepIndex(nextIndex);
+      }
     } else {
       onComplete(answers);
     }
   };
 
   const handleBack = () => {
-    if (step > 1) {
-      // Skip back over children under 17 if no children
-      if (step === 5 && answers.numChildren === 0) {
-        setStep(3);
-        return;
+    if (stepIndex > 0) {
+      let prevIndex = stepIndex - 1;
+      // Skip back over childrenUnder17 if no children
+      if (visibleSteps[prevIndex] === 'childrenUnder17' && answers.numChildren === 0) {
+        prevIndex--;
       }
-      setStep(step - 1);
+      if (prevIndex < 0) {
+        onBack ? onBack() : navigate('/');
+      } else {
+        setStepIndex(prevIndex);
+      }
     } else {
-      navigate('/');
+      onBack ? onBack() : navigate('/');
     }
   };
 
+  // Compute progress position, accounting for dynamically skipped childrenUnder17
+  const effectiveTotal = (answers.numChildren === 0 && visibleSteps.includes('childrenUnder17'))
+    ? totalVisible - 1
+    : totalVisible;
+  const effectiveCurrent = Math.min(stepIndex + 1, effectiveTotal);
+
   return (
     <div className="max-w-2xl mx-auto px-4 py-6">
-      <ProgressBar current={step} total={TOTAL_STEPS} />
+      <ProgressBar current={effectiveCurrent} total={effectiveTotal} />
 
-      {step === 1 && (
+      {currentStepId === 'filingStatus' && (
         <Question
           question={t('screener.filingStatusQuestion')}
           type="radio"
@@ -85,14 +133,14 @@ export default function TaxScreener({ onComplete, prefill }) {
           ]}
         />
       )}
-      {step === 2 && (
+      {currentStepId === 'income' && (
         <IncomeInput
           value={answers.annualIncome}
           onChange={(v) => update('annualIncome', v)}
           helpText={t('screener.incomeHelp')}
         />
       )}
-      {step === 3 && (
+      {currentStepId === 'numChildren' && (
         <Question
           question={t('screener.numChildrenQuestion')}
           type="number"
@@ -101,7 +149,7 @@ export default function TaxScreener({ onComplete, prefill }) {
           placeholder="0"
         />
       )}
-      {step === 4 && (
+      {currentStepId === 'childrenUnder17' && (
         <Question
           question={t('screener.childrenUnder17Question')}
           type="number"
@@ -110,7 +158,7 @@ export default function TaxScreener({ onComplete, prefill }) {
           placeholder="0"
         />
       )}
-      {step === 5 && (
+      {currentStepId === 'age' && (
         <Question
           question={t('screener.ageQuestion')}
           type="number"
@@ -119,7 +167,7 @@ export default function TaxScreener({ onComplete, prefill }) {
           placeholder={t('screener.agePlaceholder')}
         />
       )}
-      {step === 6 && (
+      {currentStepId === 'employed' && (
         <Question
           question={t('screener.employedQuestion')}
           type="yesno"
@@ -127,7 +175,7 @@ export default function TaxScreener({ onComplete, prefill }) {
           onChange={(v) => update('isEmployed', v)}
         />
       )}
-      {step === 7 && (
+      {currentStepId === 'studentRetirement' && (
         <>
           <Question
             question={t('screener.studentQuestion')}
@@ -143,7 +191,7 @@ export default function TaxScreener({ onComplete, prefill }) {
           />
         </>
       )}
-      {step === 8 && (
+      {currentStepId === 'college' && (
         <Question
           question={t('screener.collegeQuestion')}
           type="yesno"
@@ -168,7 +216,7 @@ export default function TaxScreener({ onComplete, prefill }) {
               : 'bg-gray-200 text-gray-400 cursor-not-allowed'
           }`}
         >
-          {step === TOTAL_STEPS ? t('app.seeResults') : t('app.next')}
+          {stepIndex === totalVisible - 1 ? t('app.seeResults') : t('app.next')}
         </button>
       </div>
     </div>

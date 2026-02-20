@@ -14,7 +14,8 @@
     "language": "Espa\u00f1ol",
     "yes": "Yes",
     "no": "No",
-    "select": "Select..."
+    "select": "Select...",
+    "switchLanguageLabel": "Switch language"
   },
   "screener": {
     "stateQuestion": "What state do you live in?",
