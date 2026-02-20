@@ -143,5 +143,5 @@ function BothScreenerRoute({ mode, setMode, benefitsAnswers, setBenefitsResults,
     return <BenefitsScreener onComplete={handleBenefitsComplete} />;
   }
 
-  return <TaxScreener onComplete={handleTaxComplete} prefill={benefitsAnswers} />;
+  return <TaxScreener onComplete={handleTaxComplete} prefill={benefitsAnswers} onBack={() => setPhase('benefits')} />;
 }

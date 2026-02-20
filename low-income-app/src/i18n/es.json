@@ -14,7 +14,8 @@
     "language": "English",
     "yes": "S\u00ed",
     "no": "No",
-    "select": "Seleccionar..."
+    "select": "Seleccionar...",
+    "switchLanguageLabel": "Cambiar idioma"
   },
   "screener": {
     "stateQuestion": "\u00bfEn qu\u00e9 estado vive?",

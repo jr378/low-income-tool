@@ -45,7 +45,7 @@ export default function TaxResults({ results, answers }) {
             {t('results.taxCreditsHero')}
           </p>
           <p className="text-4xl font-extrabold text-green-900 mb-1">
-            ${totalCredits.toLocaleString()}{t('results.perYear')}
+            {`$${totalCredits.toLocaleString()}`}{t('results.perYear')}
           </p>
           {monthlyTotal > 0 && (
             <p className="text-lg font-medium text-green-700 mb-2">

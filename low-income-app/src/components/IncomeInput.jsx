@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const FREQUENCIES = [
@@ -13,16 +13,18 @@ export default function IncomeInput({ value, onChange, helpText }) {
   const { t } = useTranslation();
   const [frequency, setFrequency] = useState('yearly');
   const [rawAmount, setRawAmount] = useState(value ?? '');
+  const onChangeRef = useRef(onChange);
+  onChangeRef.current = onChange;
 
   const currentMultiplier = FREQUENCIES.find(f => f.value === frequency)?.multiplier ?? 1;
 
   useEffect(() => {
     if (rawAmount === '' || rawAmount === null) {
-      onChange(null);
+      onChangeRef.current(null);
     } else {
       const num = parseFloat(String(rawAmount).replace(/,/g, ''));
       if (!isNaN(num)) {
-        onChange(Math.round(num * currentMultiplier));
+        onChangeRef.current(Math.round(num * currentMultiplier));
       }
     }
   }, [rawAmount, currentMultiplier]);

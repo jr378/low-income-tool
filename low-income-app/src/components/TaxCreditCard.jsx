@@ -52,7 +52,7 @@ export default function TaxCreditCard({ credit, status, reason, estimatedAmount 
             {t('results.estimatedValue')}
           </p>
           <p className="text-3xl font-bold text-green-800 mb-1">
-            ${estimatedAmount.toLocaleString()}{t('results.perYear')}
+            {`$${estimatedAmount.toLocaleString()}`}{t('results.perYear')}
           </p>
           {/* Temporal reframing: monthly amount feels more real and immediate */}
           {monthlyAmount > 0 && (
