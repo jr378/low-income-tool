@@ -31,11 +31,11 @@ export default function IncomeInput({ value, onChange, helpText }) {
 
   return (
     <div className="mb-6">
-      <label className="block text-lg font-medium text-gray-800 mb-3">
+      <label htmlFor="income-input" className="block text-lg font-medium text-gray-800 mb-3">
         {t('screener.incomeQuestion')}
       </label>
       {helpText && (
-        <p className="text-sm text-gray-500 mb-3">{helpText}</p>
+        <p id="income-help" className="text-sm text-gray-600 mb-3">{helpText}</p>
       )}
 
       <div className="flex flex-wrap gap-2 mb-3">
@@ -60,8 +60,9 @@ export default function IncomeInput({ value, onChange, helpText }) {
       </div>
 
       <div className="relative">
-        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg">$</span>
+        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 text-lg" aria-hidden="true">$</span>
         <input
+          id="income-input"
           type="text"
           inputMode="decimal"
           value={rawAmount}
@@ -70,6 +71,7 @@ export default function IncomeInput({ value, onChange, helpText }) {
             setRawAmount(val);
           }}
           placeholder={t(`screener.incomePlaceholder_${frequency}`)}
+          aria-describedby={helpText ? 'income-help' : undefined}
           className="w-full py-3 pl-8 pr-4 rounded-lg border-2 border-gray-200 text-lg focus:border-blue-500 focus:outline-none"
         />
       </div>
