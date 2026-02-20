@@ -17,7 +17,7 @@ import { PROGRAMS } from '../data/programs';
  * @param {boolean} answers.isEmployed - Whether applicant is currently employed
  * @param {boolean} answers.isStudent - Whether applicant is a student
  *
- * @returns {Array} Array of { program, eligible, reason }
+ * @returns {Array} Array of { program, status, reasonKey, reasonParams }
  */
 export function checkAllBenefits(answers) {
   const {
@@ -64,115 +64,115 @@ function checkProgram(program, data) {
   switch (program.id) {
     case 'snap': {
       if (percentFPL <= 130) {
-        return result(program, 'eligible', 'Your income is within the SNAP gross income limit.');
+        return result(program, 'eligible', 'reasons.snap_eligible');
       }
       if (percentFPL <= 200) {
-        return result(program, 'likely', 'Some states have expanded SNAP eligibility (Broad-Based Categorical Eligibility). You may qualify in your state.');
+        return result(program, 'likely', 'reasons.snap_likely');
       }
-      return result(program, 'unlikely', 'Your income appears to exceed SNAP limits, but you may still qualify if you have high housing or childcare costs.');
+      return result(program, 'unlikely', 'reasons.snap_unlikely');
     }
 
     case 'medicaid': {
       const isExpansion = isMedicaidExpansionState(state);
       if (isExpansion && percentFPL <= 138) {
-        return result(program, 'eligible', 'Your state expanded Medicaid and your income is within the limit.');
+        return result(program, 'eligible', 'reasons.medicaid_eligible_expansion');
       }
       if (!isExpansion && percentFPL <= 50 && hasChildrenUnder18) {
-        return result(program, 'eligible', 'As a parent with very low income, you likely qualify even without Medicaid expansion.');
+        return result(program, 'eligible', 'reasons.medicaid_eligible_parent');
       }
       if (!isExpansion && (isPregnant || hasChildrenUnder18)) {
-        return result(program, 'likely', 'Your state has not expanded Medicaid, but pregnant women and children often have higher income limits.');
+        return result(program, 'likely', 'reasons.medicaid_likely_noexpansion');
       }
       if (isExpansion && percentFPL <= 200) {
-        return result(program, 'likely', 'You may qualify through state-specific programs or if your income decreases.');
+        return result(program, 'likely', 'reasons.medicaid_likely_expansion');
       }
-      return result(program, 'unlikely', 'Your income may exceed Medicaid limits in your state.');
+      return result(program, 'unlikely', 'reasons.medicaid_unlikely');
     }
 
     case 'chip': {
       if (!hasChildrenUnder18) {
-        return result(program, 'unlikely', 'CHIP is for children under 19.');
+        return result(program, 'unlikely', 'reasons.chip_unlikely_nochildren');
       }
       if (percentFPL <= 200) {
-        return result(program, 'eligible', 'Your income is within typical CHIP limits and you have children.');
+        return result(program, 'eligible', 'reasons.chip_eligible');
       }
       if (percentFPL <= 300) {
-        return result(program, 'likely', 'Many states cover children at higher income levels through CHIP.');
+        return result(program, 'likely', 'reasons.chip_likely');
       }
-      return result(program, 'unlikely', 'Your income may exceed CHIP limits in your state.');
+      return result(program, 'unlikely', 'reasons.chip_unlikely');
     }
 
     case 'wic': {
       const hasWicEligiblePerson = isPregnant || hasChildrenUnder5;
       if (!hasWicEligiblePerson) {
-        return result(program, 'unlikely', 'WIC is for pregnant/postpartum women, infants, and children under 5.');
+        return result(program, 'unlikely', 'reasons.wic_unlikely_noperson');
       }
       if (percentFPL <= 185) {
-        return result(program, 'eligible', 'Your income is within WIC limits and your household includes an eligible person.');
+        return result(program, 'eligible', 'reasons.wic_eligible');
       }
-      return result(program, 'unlikely', 'Your income appears to exceed WIC limits (185% FPL).');
+      return result(program, 'unlikely', 'reasons.wic_unlikely');
     }
 
     case 'liheap': {
       if (percentFPL <= 150) {
-        return result(program, 'eligible', 'Your income is within LIHEAP limits.');
+        return result(program, 'eligible', 'reasons.liheap_eligible');
       }
       if (percentFPL <= 200) {
-        return result(program, 'likely', 'Some states have higher LIHEAP income limits. You may qualify.');
+        return result(program, 'likely', 'reasons.liheap_likely');
       }
-      return result(program, 'unlikely', 'Your income appears to exceed LIHEAP limits.');
+      return result(program, 'unlikely', 'reasons.liheap_unlikely');
     }
 
     case 'ssi': {
       const monthlyIncome = annualIncome / 12;
       const isAgeEligible = age >= 65;
       if ((isAgeEligible || hasDisability) && monthlyIncome <= 1971) {
-        return result(program, 'eligible', 'You meet the age/disability requirement and your income is within SSI limits.');
+        return result(program, 'eligible', 'reasons.ssi_eligible');
       }
       if ((isAgeEligible || hasDisability) && monthlyIncome <= 3000) {
-        return result(program, 'likely', 'You meet the age/disability requirement. SSI has complex income rules — not all income is counted.');
+        return result(program, 'likely', 'reasons.ssi_likely');
       }
       if (!isAgeEligible && !hasDisability) {
-        return result(program, 'unlikely', 'SSI requires age 65+ or a qualifying disability.');
+        return result(program, 'unlikely', 'reasons.ssi_unlikely_age');
       }
-      return result(program, 'unlikely', 'Your income may exceed SSI limits.');
+      return result(program, 'unlikely', 'reasons.ssi_unlikely');
     }
 
     case 'tanf': {
       if (!hasChildrenUnder18) {
-        return result(program, 'unlikely', 'TANF is primarily for families with children.');
+        return result(program, 'unlikely', 'reasons.tanf_unlikely_nochildren');
       }
       if (percentFPL <= 100) {
-        return result(program, 'eligible', 'Your income is within typical TANF limits and you have children.');
+        return result(program, 'eligible', 'reasons.tanf_eligible');
       }
       if (percentFPL <= 150) {
-        return result(program, 'likely', 'TANF limits vary by state. You may qualify depending on your state\'s rules.');
+        return result(program, 'likely', 'reasons.tanf_likely');
       }
-      return result(program, 'unlikely', 'Your income may exceed TANF limits in your state.');
+      return result(program, 'unlikely', 'reasons.tanf_unlikely');
     }
 
     case 'lifeline': {
       if (percentFPL <= 135) {
-        return result(program, 'eligible', 'Your income is within Lifeline limits.');
+        return result(program, 'eligible', 'reasons.lifeline_eligible');
       }
-      return result(program, 'likely', 'You may qualify for Lifeline if you participate in SNAP, Medicaid, SSI, or other qualifying programs.');
+      return result(program, 'likely', 'reasons.lifeline_likely');
     }
 
     case 'pell': {
       if (percentFPL <= 175) {
-        return result(program, 'eligible', 'Based on your income, you would likely receive a significant Pell Grant if enrolled in college.');
+        return result(program, 'eligible', 'reasons.pell_eligible');
       }
       if (percentFPL <= 350) {
-        return result(program, 'likely', 'You may qualify for a partial Pell Grant if enrolled in college.');
+        return result(program, 'likely', 'reasons.pell_likely');
       }
-      return result(program, 'unlikely', 'Your income may be too high for a Pell Grant.');
+      return result(program, 'unlikely', 'reasons.pell_unlikely');
     }
 
     default:
-      return result(program, 'unlikely', 'Unable to determine eligibility.');
+      return result(program, 'unlikely', 'reasons.default_unlikely');
   }
 }
 
-function result(program, status, reason) {
-  return { program, status, reason };
+function result(program, status, reasonKey, reasonParams) {
+  return { program, status, reasonKey, reasonParams };
 }

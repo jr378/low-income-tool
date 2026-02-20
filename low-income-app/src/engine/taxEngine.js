@@ -14,7 +14,7 @@ import { TAX_CREDITS } from '../data/taxCredits';
  * @param {boolean} answers.isEnrolledInCollege - Enrolled at least half-time in college?
  * @param {boolean} answers.isEmployed - Has earned income?
  *
- * @returns {Array} Array of { credit, eligible, estimatedAmount, reason }
+ * @returns {Array} Array of { credit, status, estimatedAmount, reasonKey, reasonParams }
  */
 export function checkAllTaxCredits(answers) {
   const {
@@ -41,14 +41,14 @@ export function checkAllTaxCredits(answers) {
     const incomeLimit = isMarried ? tier.incomeLimitMarried : tier.incomeLimitSingle;
 
     if (!isEmployed) {
-      results.push({ credit, status: 'unlikely', estimatedAmount: 0, reason: 'EITC requires earned income from employment or self-employment.' });
+      results.push({ credit, status: 'unlikely', estimatedAmount: 0, reasonKey: 'reasons.eitc_no_employment' });
     } else if (annualIncome <= incomeLimit) {
       // Estimate the credit amount (simplified — real calculation uses earned income tables)
       const ratio = 1 - (annualIncome / incomeLimit);
       const estimated = Math.round(tier.maxCredit * Math.min(ratio * 2, 1));
-      results.push({ credit, status: 'eligible', estimatedAmount: estimated, reason: `Your income is within EITC limits for ${numChildren} qualifying child${numChildren !== 1 ? 'ren' : ''}.` });
+      results.push({ credit, status: 'eligible', estimatedAmount: estimated, reasonKey: 'reasons.eitc_eligible', reasonParams: { count: numChildren } });
     } else {
-      results.push({ credit, status: 'unlikely', estimatedAmount: 0, reason: 'Your income exceeds EITC limits for your filing status and number of children.' });
+      results.push({ credit, status: 'unlikely', estimatedAmount: 0, reasonKey: 'reasons.eitc_unlikely' });
     }
   }
 
@@ -60,19 +60,19 @@ export function checkAllTaxCredits(answers) {
       const phaseOut = isMarried ? credit.phaseOutMarried : credit.phaseOutSingle;
       if (annualIncome <= phaseOut) {
         const estimated = childrenUnder17 * credit.perChild;
-        results.push({ credit, status: 'eligible', estimatedAmount: estimated, reason: `$${credit.perChild.toLocaleString()} per qualifying child under 17.` });
+        results.push({ credit, status: 'eligible', estimatedAmount: estimated, reasonKey: 'reasons.ctc_eligible', reasonParams: { amount: credit.perChild.toLocaleString() } });
       } else {
         const reduction = Math.floor((annualIncome - phaseOut) / 1000) * 50;
         const full = childrenUnder17 * credit.perChild;
         const remaining = Math.max(full - reduction, 0);
         if (remaining > 0) {
-          results.push({ credit, status: 'eligible', estimatedAmount: remaining, reason: 'Your credit is reduced due to income phase-out.' });
+          results.push({ credit, status: 'eligible', estimatedAmount: remaining, reasonKey: 'reasons.ctc_phaseout' });
         } else {
-          results.push({ credit, status: 'unlikely', estimatedAmount: 0, reason: 'Your income exceeds the Child Tax Credit phase-out range.' });
+          results.push({ credit, status: 'unlikely', estimatedAmount: 0, reasonKey: 'reasons.ctc_unlikely_income' });
         }
       }
     } else {
-      results.push({ credit, status: 'unlikely', estimatedAmount: 0, reason: 'The Child Tax Credit requires qualifying children under 17.' });
+      results.push({ credit, status: 'unlikely', estimatedAmount: 0, reasonKey: 'reasons.ctc_unlikely_nochildren' });
     }
   }
 
@@ -81,9 +81,9 @@ export function checkAllTaxCredits(answers) {
     const credit = TAX_CREDITS.find(c => c.id === 'savers');
     if (!credit) throw new Error('Savers credit definition missing from TAX_CREDITS');
     if (age < 18 || isStudent) {
-      results.push({ credit, status: 'unlikely', estimatedAmount: 0, reason: 'Must be 18+ and not a full-time student.' });
+      results.push({ credit, status: 'unlikely', estimatedAmount: 0, reasonKey: 'reasons.savers_underage' });
     } else if (!contributesToRetirement) {
-      results.push({ credit, status: 'unlikely', estimatedAmount: 0, reason: 'Requires contributions to a retirement account (401k, IRA, etc.). If you start contributing, you could qualify.' });
+      results.push({ credit, status: 'unlikely', estimatedAmount: 0, reasonKey: 'reasons.savers_no_contribution' });
     } else {
       const statusKey = filingStatus === 'hoh' ? 'hoh' : (isMarried ? 'married' : 'single');
       const tiers = credit.incomeLimits[statusKey];
@@ -97,9 +97,9 @@ export function checkAllTaxCredits(answers) {
       if (rate > 0) {
         const maxContribution = isMarried ? 4000 : 2000;
         const estimated = Math.round(maxContribution * rate / 100);
-        results.push({ credit, status: 'eligible', estimatedAmount: estimated, reason: `You could get a ${rate}% credit on retirement contributions up to $${maxContribution.toLocaleString()}.` });
+        results.push({ credit, status: 'eligible', estimatedAmount: estimated, reasonKey: 'reasons.savers_eligible', reasonParams: { rate, amount: maxContribution.toLocaleString() } });
       } else {
-        results.push({ credit, status: 'unlikely', estimatedAmount: 0, reason: 'Your income exceeds Saver\'s Credit limits for your filing status.' });
+        results.push({ credit, status: 'unlikely', estimatedAmount: 0, reasonKey: 'reasons.savers_unlikely' });
       }
     }
   }
@@ -109,13 +109,13 @@ export function checkAllTaxCredits(answers) {
     const credit = TAX_CREDITS.find(c => c.id === 'aoc');
     if (!credit) throw new Error('AOC credit definition missing from TAX_CREDITS');
     if (!isEnrolledInCollege) {
-      results.push({ credit, status: 'unlikely', estimatedAmount: 0, reason: 'This credit is for students enrolled at least half-time in college. If you plan to enroll, you could qualify.' });
+      results.push({ credit, status: 'unlikely', estimatedAmount: 0, reasonKey: 'reasons.aoc_not_enrolled' });
     } else {
       const limit = isMarried ? credit.incomeLimitMarried : credit.incomeLimitSingle;
       if (annualIncome <= limit) {
-        results.push({ credit, status: 'eligible', estimatedAmount: credit.maxCredit, reason: `Up to $${credit.maxCredit.toLocaleString()}/year for tuition, fees, and course materials.` });
+        results.push({ credit, status: 'eligible', estimatedAmount: credit.maxCredit, reasonKey: 'reasons.aoc_eligible', reasonParams: { amount: credit.maxCredit.toLocaleString() } });
       } else {
-        results.push({ credit, status: 'unlikely', estimatedAmount: 0, reason: 'Your income exceeds the American Opportunity Credit limits.' });
+        results.push({ credit, status: 'unlikely', estimatedAmount: 0, reasonKey: 'reasons.aoc_unlikely' });
       }
     }
   }

@@ -137,11 +137,11 @@ export const FREE_FILING_RESOURCES = [
     incomeLimit: 67000,
   },
   {
-    name: 'IRS Direct File',
-    nameEs: 'IRS Direct File',
-    description: 'File your federal return directly with the IRS for free. Available in participating states.',
-    descriptionEs: 'Presente su declaración federal directamente con el IRS de forma gratuita. Disponible en estados participantes.',
-    url: 'https://directfile.irs.gov/',
+    name: 'IRS Free File Fillable Forms',
+    nameEs: 'Formularios Rellenables de IRS Free File',
+    description: 'Free online federal tax forms for any income level. Best if you are comfortable filling out tax forms yourself.',
+    descriptionEs: 'Formularios federales de impuestos en línea gratuitos para cualquier nivel de ingreso. Mejor si se siente cómodo llenando formularios de impuestos.',
+    url: 'https://www.irs.gov/e-file-providers/free-file-fillable-forms',
     incomeLimit: null,
   },
 ];

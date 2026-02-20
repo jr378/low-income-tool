@@ -49,7 +49,7 @@ export default function BenefitsResults({ results, answers }) {
               key={r.program.id}
               program={r.program}
               status={r.status}
-              reason={r.reason}
+              reason={t(r.reasonKey, r.reasonParams)}
               householdSize={answers?.householdSize}
             />
           ))}
@@ -66,7 +66,7 @@ export default function BenefitsResults({ results, answers }) {
               key={r.program.id}
               program={r.program}
               status={r.status}
-              reason={r.reason}
+              reason={t(r.reasonKey, r.reasonParams)}
               householdSize={answers?.householdSize}
             />
           ))}
@@ -84,7 +84,7 @@ export default function BenefitsResults({ results, answers }) {
                 key={r.program.id}
                 program={r.program}
                 status={r.status}
-                reason={r.reason}
+                reason={t(r.reasonKey, r.reasonParams)}
                 householdSize={answers?.householdSize}
               />
             ))}
