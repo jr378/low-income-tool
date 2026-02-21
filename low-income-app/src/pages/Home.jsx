@@ -42,6 +42,7 @@ export default function Home() {
           className="w-full py-4 px-6 bg-white hover:bg-gray-50 text-gray-800 text-lg font-semibold rounded-xl transition-colors shadow-sm border-2 border-gray-200"
         >
           {t('app.startBoth')}
+          <span className="block text-sm font-normal text-gray-500 mt-1">{t('app.startBothHint')}</span>
         </button>
       </div>
 

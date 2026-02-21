@@ -84,13 +84,16 @@ export default function Question({ question, type, value, onChange, options, pla
               role="radio"
               aria-checked={value === opt.value}
               onClick={() => onChange(opt.value)}
-              className={`w-full py-3 px-4 rounded-lg border-2 text-left text-lg font-medium transition-colors ${
+              className={`w-full py-3 px-4 rounded-lg border-2 text-left transition-colors ${
                 value === opt.value
                   ? 'border-blue-600 bg-blue-50 text-blue-700'
                   : 'border-gray-200 bg-white text-gray-700 hover:border-gray-300'
               }`}
             >
-              {opt.label}
+              <span className="text-lg font-medium">{opt.label}</span>
+              {opt.description && (
+                <span className="block text-sm font-normal text-gray-500 mt-0.5">{opt.description}</span>
+              )}
             </button>
           ))}
         </div>
